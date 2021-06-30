@@ -25,10 +25,20 @@ app.delete("/products/:productId", (req, res) => {
   } else res.status(404).json({ message: "product not found" });
 });
 
+// Create
 app.post("/products", (req, res) => {
-  const productId = products.length + 1;
-  const productSlug = slugify(req.body.name);
+  const id = products.length + 1;
+  const slug = slugify(req.body.name, { lower: true });
+  const newProduct = {
+    id,
+    slug,
+    ...req.body,
+  };
+  products.push(newProduct);
+  res.status(201).json(newProduct);
 });
+
+// Update
 
 app.listen(8000, () => {
   console.log("localhost:8000");
