@@ -39,6 +39,19 @@ app.post("/products", (req, res) => {
 });
 
 // Update
+app.put("/products/:productId", (req, res) => {
+  const { productId } = req.params;
+  const foundProduct = products.find((product) => product.id === +productId);
+
+  if (foundProduct) {
+    //for loop so that it changes what I want to change and leaves the rest
+    for (const key in req.body) foundProduct[key] = req.body[key];
+    foundProduct.slug = slugify(foundProduct.name, { lower: true });
+    res.status(204).end();
+  } else {
+    res.status(404).json({ message: "Product not found" });
+  }
+});
 
 app.listen(8000, () => {
   console.log("localhost:8000");
