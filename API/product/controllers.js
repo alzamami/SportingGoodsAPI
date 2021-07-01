@@ -4,7 +4,7 @@ const slugify = require("slugify");
 exports.fetchProduct = (req, res) => {
   res.json(products);
 };
-
+// Delete an Existing product
 exports.deleteProduct = (req, res) => {
   const { productId } = req.params;
   const foundProduct = products.find((product) => product.id === +productId);
@@ -14,7 +14,7 @@ exports.deleteProduct = (req, res) => {
     res.status(204).end();
   } else res.status(404).json({ message: "product not found" });
 };
-
+// Add a new products
 exports.createProduct = (req, res) => {
   const id = products.length + 1;
   const slug = slugify(req.body.name, { lower: true });
@@ -26,7 +26,7 @@ exports.createProduct = (req, res) => {
   products.push(newProduct);
   res.status(201).json(newProduct);
 };
-
+// Update an Existing product
 exports.updateProduct = (req, res) => {
   const { productId } = req.params;
   const foundProduct = products.find((product) => product.id === +productId);
