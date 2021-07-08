@@ -9,8 +9,9 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+app.use("/media", express.static("media"));
+
 app.use((req, res, next) => {
-  console.log("middleware method");
   next();
 });
 // Routes
@@ -25,7 +26,7 @@ app.use((req, res, next) => {
 });
 const run = async () => {
   try {
-    await db.sequelize.sync();
+    await db.sequelize.sync({ alert: true });
     console.log("Connected Successfully");
     app.listen(8000, () => {
       console.log("localhost:8000");

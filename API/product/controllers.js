@@ -32,6 +32,7 @@ exports.deleteProduct = async (req, res, next) => {
 // Add a new products
 exports.createProduct = async (req, res, next) => {
   try {
+    if (req.file) req.body.image = `http://${req.get("host")}/${req.file.path}`;
     const newProduct = await Product.create(req.body);
     res.status(201).json(newProduct);
   } catch (error) {
@@ -42,9 +43,11 @@ exports.createProduct = async (req, res, next) => {
 // Update an Existing product
 exports.updateProduct = async (req, res, next) => {
   try {
+    if (req.file) req.body.image = `http://${req.get("host")}/${req.file.path}`;
+
     //for loop so that it changes what I want to change and leaves the rest
-    await req.product.update(req.body);
-    res.status(204).end();
+    const updatedProduct = await req.product.update(req.body);
+    res.json(updatedProduct);
   } catch (error) {
     next(error);
   }
