@@ -1,4 +1,4 @@
-const { SequelizeSlugify } = require("sequelize-slugify");
+const SequelizeSlugify = require("sequelize-slugify");
 
 module.exports = (sequelize, DataTypes) => {
   const Product = sequelize.define("Product", {
@@ -7,7 +7,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       unique: true,
     },
-    price: { type: DataTypes.INTEGER, allowNull: false, validate: { min: 4 } },
+    price: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: { min: 1 },
+      defaultValue: 4,
+    },
     description: { type: DataTypes.STRING },
     image: { type: DataTypes.STRING },
   });

@@ -5,7 +5,6 @@ const {
   productFetch,
   fetchProduct,
   deleteProduct,
-  createProduct,
   updateProduct,
 } = require("./controllers");
 
@@ -13,7 +12,7 @@ const multer = require("multer");
 
 //product routes
 router.use((req, res, next) => {
-  console.log("middleware method");
+  // console.log("middleware method");
   next();
 });
 
@@ -28,7 +27,7 @@ router.param("productId", async (req, res, next, productId) => {
     next(error);
   }
 });
-
+// multer
 const storage = multer.diskStorage({
   destination: "./media",
   filename: (req, file, cb) => {
@@ -42,9 +41,6 @@ router.get("/", productFetch);
 
 // Delete route
 router.delete("/:productId", deleteProduct);
-
-// Create
-router.post("/", upload.single("image"), createProduct);
 
 // Update
 router.put("/:productId", upload.single("image"), updateProduct);
