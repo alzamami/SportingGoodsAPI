@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const productRoutes = require("./API/product/routes");
 const storeRoutes = require("./API/store/routes");
+const userRoutes = require("./API/user/routes");
 const db = require("./db/models/index");
 
 const app = express();
@@ -13,6 +14,7 @@ app.use(bodyParser.json());
 // Routes
 app.use("/products", productRoutes);
 app.use("/stores", storeRoutes);
+app.use(userRoutes);
 app.use("/media", express.static("media"));
 
 app.use((req, res, next) => {
