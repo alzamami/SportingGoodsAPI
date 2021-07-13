@@ -1,6 +1,5 @@
 const express = require("express");
 
-const router = express.Router();
 const {
   productFetch,
   fetchProduct,
@@ -9,12 +8,13 @@ const {
 } = require("./controllers");
 
 const multer = require("multer");
+const router = express.Router();
 
 //product routes
-router.use((req, res, next) => {
-  // console.log("middleware method");
-  next();
-});
+// router.use((req, res, next) => {
+//   // console.log("middleware method");
+//   next();
+// });
 
 router.param("productId", async (req, res, next, productId) => {
   const product = await fetchProduct(productId, next);

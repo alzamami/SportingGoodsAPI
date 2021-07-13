@@ -8,6 +8,7 @@ const {
   fetchStore,
 } = require("./controllers");
 const multer = require("multer");
+const passport = require("passport");
 
 const storage = multer.diskStorage({
   destination: "./media",
@@ -33,8 +34,18 @@ router.get("/", storeFetch);
 
 // Create
 
-router.post("/", upload.single("image"), createStore);
+router.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  upload.single("image"),
+  createStore
+);
 
-router.post("/:storeId/products", upload.single("image"), createProduct);
+router.post(
+  "/:storeId/products",
+  passport.authenticate("jwt", { session: false }),
+  upload.single("image"),
+  createProduct
+);
 
 module.exports = router;

@@ -51,4 +51,12 @@ db.Store.hasMany(db.Product, {
   as: "products",
 }); // create many-1 relation
 db.Product.belongsTo(db.Store, { as: "store", foreignKey: "storeId" });
+
+db.User.hasOne(db.Store, {
+  as: "store",
+  foreignKey: "userId",
+});
+db.Store.belongsTo(db.User, {
+  as: "user",
+});
 module.exports = db;
