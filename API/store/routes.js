@@ -1,6 +1,5 @@
 const express = require("express");
 
-const router = express.Router();
 const {
   storeFetch,
   createStore,
@@ -9,6 +8,7 @@ const {
 } = require("./controllers");
 const multer = require("multer");
 const passport = require("passport");
+const router = express.Router();
 
 const storage = multer.diskStorage({
   destination: "./media",

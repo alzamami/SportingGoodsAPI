@@ -8,8 +8,8 @@ const passport = require("passport");
 const { localStrategy } = require("./middleware/passport");
 const { jwtStrategy } = require("./middleware/passport");
 
-const app = express();
 const db = require("./db/models/index");
+const app = express();
 
 // Middleware
 app.use(cors());
@@ -24,9 +24,9 @@ app.use("/stores", storeRoutes);
 app.use(userRoutes);
 app.use("/media", express.static("media"));
 
-app.use((req, res, next) => {
-  next();
-});
+// app.use((req, res, next) => {
+//   next();
+// });
 
 app.use((err, req, res, next) => {
   res

@@ -9,6 +9,7 @@ const {
 
 const multer = require("multer");
 const router = express.Router();
+const passport = require("passport");
 
 //product routes
 // router.use((req, res, next) => {
@@ -40,9 +41,18 @@ const upload = multer({ storage });
 router.get("/", productFetch);
 
 // Delete route
-router.delete("/:productId", deleteProduct);
+router.delete(
+  "/:productId",
+  passport.authenticate("jwt", { session: false }),
+  deleteProduct
+);
 
 // Update
-router.put("/:productId", upload.single("image"), updateProduct);
+router.put(
+  "/:productId",
+  passport.authenticate("jwt", { session: false }),
+  upload.single("image"),
+  updateProduct
+);
 
 module.exports = router;
